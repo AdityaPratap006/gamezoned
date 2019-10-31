@@ -18,7 +18,7 @@ function AuthStatusView() {
   const identity = useIdentityContext()
   const [dialog, setDialog] = useState(false)
   const name =
-    (identity && identity.user && identity.user.user_metadata && identity.user.user_metadata.name) || 'NoName'
+    (identity && identity.user && identity.user.user_metadata && identity.user.user_metadata.full_name) || 'NoName'
   const isLoggedIn = identity && identity.isLoggedIn
   return (
     <div>
