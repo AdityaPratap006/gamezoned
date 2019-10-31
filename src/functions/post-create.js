@@ -16,7 +16,7 @@ exports.handler = async (event, context) => {
     data: data
   }
   /* construct the fauna query */
-  return client.query(q.Create(q.Ref('collections/posts'), post))
+  return client.query(q.Create(q.Ref('classes/posts'), post))
     .then((response) => {
       console.log('success', response)
       /* Success! return the response with statusCode 200 */
