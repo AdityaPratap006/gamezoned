@@ -35,7 +35,7 @@ const myGame = {
       }).catch((error) => {
         console.log('API error', error)
       })
-  })
+  },[])
 
   
 
