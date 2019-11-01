@@ -24,7 +24,7 @@ function App() {
    
     console.log("USER:", user)
     fetch('./netlify/functions/protected-function',user && user.token && {
-      method:'POST',
+      method:'GET',
       headers:{
         Authorization: 'Bearer ' + user.token.access_token,
       }
