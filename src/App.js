@@ -8,18 +8,26 @@ function App() {
   const url = 'https://infallible-mclean-90bb83.netlify.com' // supply the url of your Netlify site instance. VERY IMPORTANT. no point putting in env var since this is public anyway
   return (
     <IdentityContextProvider url={url}>
-      <AuthStatusView />
+      <div className='App'>
+        <AuthStatusView />
+      </div>
+      
     </IdentityContextProvider>
   )
 }
 export default App
 
-function AuthStatusView() {
+function AuthStatusView(props) {
   const identity = useIdentityContext()
   const [dialog, setDialog] = useState(false)
   const name =
     (identity && identity.user && identity.user.user_metadata && identity.user.user_metadata.full_name) || 'NoName'
   const isLoggedIn = identity && identity.isLoggedIn
+
+  useEffect(() => {
+    console.log(props);
+  },[])
+
   return (
     <div>
       <div>
