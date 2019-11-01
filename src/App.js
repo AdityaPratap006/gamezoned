@@ -23,7 +23,7 @@ function App() {
   const handleClick2 = () => {
    
     console.log("USER:", user)
-    fetch('./netlify/functions/protected-function',user && user.token && {
+    fetch('/.netlify/functions/protected-function',user && user.token && {
       method:'GET',
       headers:{
         Authorization: 'Bearer ' + user.token.access_token,
