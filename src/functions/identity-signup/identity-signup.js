@@ -16,7 +16,9 @@ exports.handler = async function(event, context) {
     },
     user_metadata: {
       ...user.user_metadata, // append current user metadata
-      custom_data_from_function: 'hurray this is some extra metadata'
+      createdAt: user.createdAt,
+      email: user.email,
+      id: user.id,
     }
   }
   return {
