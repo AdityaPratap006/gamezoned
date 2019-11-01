@@ -30,7 +30,7 @@ function App() {
       }
     })
     .then(res => res.json())
-    .then(x => x.data= 'NOT ALLOWED' ? netlifyIdentity.open() : console.log(x))
+    .then(x => x.data=== 'NOT ALLOWED' ? netlifyIdentity.open() : console.log(x))
     .catch(err => console.log(err))
 
   }
