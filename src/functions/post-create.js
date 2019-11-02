@@ -13,10 +13,7 @@ exports.handler = async (event, context) => {
   const data = JSON.parse(event.body)
   console.log('Function `post-create` invoked', data)
   const post = {
-    data: {
-      developer:'devT',
-      title:'cod'
-    }
+    data: data
   }
   /* construct the fauna query */
   return client.query(q.Create(q.Ref('classes/posts'), post))
