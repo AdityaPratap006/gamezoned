@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 
-import IdentityModal, { useIdentityContext  } from 'react-netlify-identity-widget'
-import 'react-netlify-identity-widget/styles.css'
+import IdentityModal, { useIdentityContext  } from 'react-netlify-identity-widget';
+import 'react-netlify-identity-widget/styles.css';
+
+import './auth-status-view.styles.scss';
+
+import { connect } from 'react-redux';
+import { setCurrentUser } from '../../redux/user/user.actions';
 
 function AuthStatusView({setCurrentUser}) {
     const identity = useIdentityContext()
@@ -10,15 +16,20 @@ function AuthStatusView({setCurrentUser}) {
       (identity && identity.user && identity.user.user_metadata && identity.user.user_metadata.full_name) || 'NoName'
     const isLoggedIn = identity && identity.isLoggedIn
   
-    
+     
   
     return (
       <div>
         <div>
-          <h1>{isLoggedIn}</h1>
-          <button className="RNIW_btn" onClick={() => setDialog(true)}>
-            {isLoggedIn ? `Hello ${name}, Log out here!` : 'Log In'}
-          </button>
+          { 
+            (!isLoggedIn)?
+            (<div className='my-btn'  onClick={() => setDialog(true)}>
+              Log In
+            </div>)
+            :(<Link className='my-btn'  to="/account"   >
+               Account
+             </Link>)
+          }
         </div>
         <IdentityModal
           showDialog={dialog}
@@ -38,6 +49,13 @@ function AuthStatusView({setCurrentUser}) {
         />
       </div>
     )
-  }
+}
 
-export default AuthStatusView;
+const  mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch( setCurrentUser(user) )
+})
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(AuthStatusView);

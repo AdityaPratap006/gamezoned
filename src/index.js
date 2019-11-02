@@ -1,10 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
+import React from "react";
+import ReactDOM from "react-dom";
+import { IdentityContextProvider } from "react-netlify-identity-widget";
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+
+import "./index.css";
+import App from "./App";
+import * as serviceWorker from "./serviceWorker";
+
+import { store, persistor } from "./redux/store";
+
+const url = "https://infallible-mclean-90bb83.netlify.com"; // supply the url of your Netlify site instance. VERY IMPORTANT. no point putting in env var since this is public anyway
+
+ReactDOM.render(
+  <Provider store={store}>
+    <IdentityContextProvider url={url}>
+      <BrowserRouter>
+        <PersistGate persistor={persistor}>
+          <App />
+        </PersistGate>
+      </BrowserRouter>
+    </IdentityContextProvider>
+  </Provider>,
+  document.getElementById("root")
+);
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.

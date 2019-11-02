@@ -1,30 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React from "react";
 
-import './App.css';
-import { IdentityContextProvider } from 'react-netlify-identity-widget'
+import "./App.css";
+
+import  { useIdentityContext  } from 'react-netlify-identity-widget';
+import { Switch, Route, Redirect } from "react-router-dom";
 
 //components
-import AuthStatusView from './components/auth-status-view/auth-status-view.component';
- 
+import Navbar from "./components/navbar/navbar.component";
+
+//pages
+import HomePage from './pages/Home/Home.page';
+import AccountPage from './pages/Account/Account.page';
+
 
 function App() {
-  const url = 'https://infallible-mclean-90bb83.netlify.com' // supply the url of your Netlify site instance. VERY IMPORTANT. no point putting in env var since this is public anyway
-  
-  const [ currentUser, setCurrentUser] = useState(null);
 
-  useEffect(() => {
-    console.log(currentUser);
-  })
   
+
+  const identity = useIdentityContext();
+  const isLoggedIn = identity && identity.isLoggedIn;
+
+
   return (
-    <IdentityContextProvider url={url}>
-      <div className='App'>
-        <h1>{currentUser? currentUser.user_metadata.full_name : 'No one!'}</h1>
-        <AuthStatusView setCurrentUser={setCurrentUser}/>
+   
+      <div className="App">
+           <Navbar/>
+           <Switch>
+            <Route exact path="/" component={HomePage} />
+            <Route  path = '/account' render={() => (
+              isLoggedIn?
+              <AccountPage/>
+              :<Redirect to='/' />
+            )}/>
+          </Switch>
+        
       </div>
-      
-    </IdentityContextProvider>
-  )
+    
+  );
 }
-export default App
-
+export default App;
