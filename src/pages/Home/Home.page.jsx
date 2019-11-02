@@ -2,6 +2,8 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
+
+
 const HomePage = ({currentUser}) => {
     console.log(currentUser)
     return (

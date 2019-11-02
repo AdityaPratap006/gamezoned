@@ -21,6 +21,22 @@ function App() {
   const isLoggedIn = identity && identity.isLoggedIn;
 
 
+  const fetchUser = (userId) => {
+    return fetch(`/.netlify/functions/user-fetch/${userId}`, {
+      method: 'POST',
+    }).then(response => {
+      return response.json()
+    })
+  }
+
+  if(identity && identity.user ){
+    fetchUser(identity.user.id)
+    .then(res => console.log(res))
+    .catch(err => console.log(err))
+  }
+
+
+
   return (
    
       <div className="App">
