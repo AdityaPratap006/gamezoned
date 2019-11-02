@@ -1,7 +1,6 @@
 /* code from functions/todos-read.js */
 /* Import faunaDB sdk */
 const faunadb = require('faunadb')
-const getId = require('./utils/getId')
 
 const q = faunadb.query
 const client = new faunadb.Client({
@@ -9,7 +8,7 @@ const client = new faunadb.Client({
 })
 
 exports.handler = (event, context) => {
-  const id = getId(event.path)
+  const id = event.id;
   console.log(`Function 'user-fetch' invoked. Read id: ${id}`)
   return client.query(q.Get(q.Ref(`classes/users/${id}`)))
     .then((response) => {
