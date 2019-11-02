@@ -29,11 +29,11 @@ function App() {
     })
   }
 
-  if(identity && identity.user ){
-    fetchUser(identity.user.id)
+   
+    fetchUser(247878464032473618)
     .then(res => console.log(res))
     .catch(err => console.log(err))
-  }
+   
 
 
 
