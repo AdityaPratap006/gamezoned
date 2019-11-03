@@ -41,7 +41,7 @@ function AuthStatusView({currentUser, setCurrentUser}) {
           }}
           onSignup={(user) =>{ 
               console.log('welcome ', user.user_metadata)
-              setCurrentUser(user);
+              //setCurrentUser(user);
             }}
           onLogout={() => {
               console.log('bye ', name)
