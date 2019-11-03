@@ -28,7 +28,8 @@ exports.handler = async function(event, context) {
       createdAt: user.created_at,
       email: user.email,
       id: user.id,
-    }
+    },
+    isLoggedIn:true
   }
 
   

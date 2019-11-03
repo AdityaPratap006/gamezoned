@@ -69,7 +69,7 @@ function App({currentUser, setCurrentUser}) {
            <Switch>
             <Route exact path="/" component={HomePage} />
             <Route  path = '/account' render={() => (
-              isLoggedIn?
+              currentUser?
               <AccountPage/>
               :<Redirect to='/' />
             )}/>

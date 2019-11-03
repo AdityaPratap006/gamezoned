@@ -9,7 +9,7 @@ import './auth-status-view.styles.scss';
 import { connect } from 'react-redux';
 import { setCurrentUser } from '../../redux/user/user.actions';
 
-function AuthStatusView({setCurrentUser}) {
+function AuthStatusView({currentUser, setCurrentUser}) {
     const identity = useIdentityContext();
     const [dialog, setDialog] = useState(false);
 
@@ -17,13 +17,13 @@ function AuthStatusView({setCurrentUser}) {
     
     const isLoggedIn = identity && identity.isLoggedIn;
   
-     
+  console.log(identity);   
   
     return (
       <div>
         <div>
           { 
-            (!isLoggedIn)?
+            (!(currentUser))?
             (<div className='my-btn'  onClick={() => setDialog(true)}>
               Log In
             </div>)
@@ -52,11 +52,15 @@ function AuthStatusView({setCurrentUser}) {
     )
 }
 
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+})
+
 const  mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch( setCurrentUser(user) )
 })
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(AuthStatusView);
