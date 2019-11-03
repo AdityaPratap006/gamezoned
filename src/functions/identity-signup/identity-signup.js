@@ -45,11 +45,11 @@ exports.handler = async function(event, context) {
 
   return  client.query(q.Create(q.Ref('classes/users'), newUser))
     .then((response) => {
-      console.log('success', responseBody)
+      console.log('success', response)
       /* Success! return the response with statusCode 200 */
       return {
         statusCode: 200,
-        body: JSON.stringify(responseBody)
+        body: JSON.stringify(response)
       }
     }).catch((error) => {
       console.log('error', error)

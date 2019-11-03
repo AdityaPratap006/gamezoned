@@ -22,7 +22,7 @@ function App() {
 
 
   const fetchUser = (userId) => {
-    return fetch(`/.netlify/functions/user-fetch/${userId}`, {
+    return fetch(`/.netlify/functions/user-fetch`, {
       method: 'POST',
       id:userId
       
@@ -32,9 +32,9 @@ function App() {
   }
 
    
-    fetchUser(247878464032473618)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+    // fetchUser('247878464032473618')
+    // .then(res => console.log(res))
+    // .catch(err => console.log(err))
    
 
 
