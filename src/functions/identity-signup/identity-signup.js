@@ -50,10 +50,10 @@ exports.handler = async function(event, context) {
       console.log('success', response)
       /* Success! return the response with statusCode 200 */
       createdUser = response;
-      return {
-        statusCode: 200,
-        body: JSON.stringify(response)
-      }
+      // return {
+      //   statusCode: 200,
+      //   body: JSON.stringify(response)
+      // }
     }).catch((error) => {
       console.log('error', error)
       /* Error! return the error with statusCode 400 */
@@ -67,7 +67,7 @@ exports.handler = async function(event, context) {
      statusCode:200,
      body:JSON.stringify({
        ...responseBody,
-       createdUser: createdUser
+       created_newuser: createdUser
      })
    }
 }
