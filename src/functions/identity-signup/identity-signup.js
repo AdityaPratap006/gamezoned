@@ -26,7 +26,7 @@ exports.handler = async function(event, context) {
     user_metadata: {
       ...user.user_metadata, // append current user metadata
       createdAt: user.created_at,
-      
+      email: user.email,
       id: user.id,
     }
   }
@@ -49,7 +49,7 @@ exports.handler = async function(event, context) {
       /* Success! return the response with statusCode 200 */
       return {
         statusCode: 200,
-        body: JSON.stringify({response, responseBody})
+        body: JSON.stringify(response)
       }
     }).catch((error) => {
       console.log('error', error)
