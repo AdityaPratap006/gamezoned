@@ -49,7 +49,7 @@ exports.handler = async function(event, context) {
       /* Success! return the response with statusCode 200 */
       return {
         statusCode: 200,
-        body: JSON.stringify(response)
+        body: JSON.stringify({response, responseBody})
       }
     }).catch((error) => {
       console.log('error', error)
