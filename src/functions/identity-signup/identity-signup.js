@@ -44,16 +44,18 @@ exports.handler = async function(event, context) {
     data: userData
   }
 
-    let createdUser = null;
-    client.query(q.Create(q.Ref('classes/users'), newUser))
+    return client.query(q.Create(q.Ref('classes/users'), newUser))
     .then((response) => {
       console.log('success', response)
       /* Success! return the response with statusCode 200 */
-      createdUser = response;
-      // return {
-      //   statusCode: 200,
-      //   body: JSON.stringify(response)
-      // }
+      
+      return {
+        statusCode: 200,
+        body: JSON.stringify({
+          ...responseBody,
+          created_newuser: response
+        })
+      }
     }).catch((error) => {
       console.log('error', error)
       /* Error! return the error with statusCode 400 */
@@ -63,11 +65,5 @@ exports.handler = async function(event, context) {
       }
     })
 
-   return {
-     statusCode:200,
-     body:JSON.stringify({
-       ...responseBody,
-       created_newuser: createdUser
-     })
-   }
+   
 }
