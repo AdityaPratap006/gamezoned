@@ -31,38 +31,40 @@ exports.handler = async function(event, context) {
     }
   }
 
-  const userData = {
-    id: user.id,
-    created_at: user.created_at,
-    email: user.email,
-    name: user.user_metadata.full_name
+  return {
+    statusCode:200,
+    body: JSON.stringify(responseBody)
   }
 
-  const newUser =  {
-    data: userData
-  }
+  // const userData = {
+  //   id: user.id,
+  //   created_at: user.created_at,
+  //   email: user.email,
+  //   name: user.user_metadata.full_name
+  // }
 
-    let createdUser = null;
-    client.query(q.Create(q.Ref('classes/users'), newUser))
-    .then((response) => {
-      console.log('success', response)
-      /* Success! return the response with statusCode 200 */
-      createdUser = response;
-      return {
-        statusCode: 200,
-        body: JSON.stringify({...responseBody, createdUser:response})
-      }
-    }).catch((error) => {
-      console.log('error', error)
-      /* Error! return the error with statusCode 400 */
-      return {
-        statusCode: 400,
-        body: JSON.stringify(error)
-      }
-    })
+  // const newUser =  {
+  //   data: userData
+  // }
 
-    return {
-      statusCode:200,
-      body: JSON.stringify(createdUser)
-    }
+  //   let createdUser = null;
+  //   client.query(q.Create(q.Ref('classes/users'), newUser))
+  //   .then((response) => {
+  //     console.log('success', response)
+  //     /* Success! return the response with statusCode 200 */
+  //     createdUser = response;
+  //     return {
+  //       statusCode: 200,
+  //       body: JSON.stringify({...responseBody, createdUser:response})
+  //     }
+  //   }).catch((error) => {
+  //     console.log('error', error)
+  //     /* Error! return the error with statusCode 400 */
+  //     return {
+  //       statusCode: 400,
+  //       body: JSON.stringify(error)
+  //     }
+  //   })
+
+   
 }
