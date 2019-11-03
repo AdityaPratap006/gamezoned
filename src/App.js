@@ -24,6 +24,9 @@ function App() {
   const fetchUser = (userId) => {
     return fetch(`/.netlify/functions/user-fetch/${userId}`, {
       method: 'POST',
+      body:{
+        id:userId
+      }
     }).then(response => {
       return response.json()
     })
