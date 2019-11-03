@@ -10,11 +10,12 @@ import { connect } from 'react-redux';
 import { setCurrentUser } from '../../redux/user/user.actions';
 
 function AuthStatusView({setCurrentUser}) {
-    const identity = useIdentityContext()
-    const [dialog, setDialog] = useState(false)
-    const name =
-      (identity && identity.user && identity.user.user_metadata && identity.user.user_metadata.full_name) || 'NoName'
-    const isLoggedIn = identity && identity.isLoggedIn
+    const identity = useIdentityContext();
+    const [dialog, setDialog] = useState(false);
+
+    const name = (identity && identity.user && identity.user.user_metadata && identity.user.user_metadata.full_name) || 'NoName';
+    
+    const isLoggedIn = identity && identity.isLoggedIn;
   
      
   
@@ -36,15 +37,15 @@ function AuthStatusView({setCurrentUser}) {
           onCloseDialog={() => setDialog(false)}
           onLogin={(user) => {
             console.log('hello ', user.user_metadata)
-            setCurrentUser(user);
+            //setCurrentUser(user);
           }}
           onSignup={(user) =>{ 
               console.log('welcome ', user.user_metadata)
-              setCurrentUser(user);
+              //setCurrentUser(user);
             }}
           onLogout={() => {
               console.log('bye ', name)
-              setCurrentUser(null);
+              //setCurrentUser(null);
             }}
         />
       </div>

@@ -4,6 +4,7 @@ import "./App.css";
 
 import  { useIdentityContext  } from 'react-netlify-identity-widget';
 import { Switch, Route, Redirect } from "react-router-dom";
+import { connect } from 'react-redux';
 
 //components
 import Navbar from "./components/navbar/navbar.component";
@@ -12,6 +13,10 @@ import Navbar from "./components/navbar/navbar.component";
 import HomePage from './pages/Home/Home.page';
 import AccountPage from './pages/Account/Account.page';
 
+//redux actions
+import {setCurrentUser} from './redux/user/user.actions';
+
+
 
 function App() {
 
@@ -19,12 +24,14 @@ function App() {
 
   const identity = useIdentityContext();
   const isLoggedIn = identity && identity.isLoggedIn;
-
+ // console.log('user-meta:',identity.user.user_metadata.created_user.ref['@ref'].id)
 
   const fetchUser = (userId) => {
     return fetch(`/.netlify/functions/user-fetch`, {
       method: 'POST',
-      id:userId
+      body: JSON.stringify({
+        id:userId
+      })
       
     }).then(response => {
       return response.json()
@@ -32,10 +39,11 @@ function App() {
   }
 
    
-    fetchUser(247878464032473618)
+    fetchUser(248027175496712724)
     .then(res => console.log(res))
     .catch(err => console.log(err))
    
+
 
 
 
@@ -56,4 +64,13 @@ function App() {
     
   );
 }
-export default App;
+
+
+const  mapDispatchToProps = dispatch => ({
+  setCurrentUser: user => dispatch( setCurrentUser(user) )
+})
+
+export default connect(
+  null,
+  mapDispatchToProps
+)(App);

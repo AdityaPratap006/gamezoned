@@ -8,7 +8,7 @@ const client = new faunadb.Client({
 })
 
 exports.handler = (event, context) => {
-  const id = JSON.parse(event.id);
+  const id = JSON.parse(event.body.id);
   console.log(`Function 'user-fetch' invoked. Read id: ${id}`)
   return client.query(q.Get(q.Ref(`classes/users/${id}`)))
     .then((response) => {

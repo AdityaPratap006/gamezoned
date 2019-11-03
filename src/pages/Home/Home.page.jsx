@@ -1,11 +1,13 @@
 import React from 'react';
 
 import { connect } from 'react-redux';
+//import  { useIdentityContext  } from 'react-netlify-identity-widget';
+
 
 
 
 const HomePage = ({currentUser}) => {
-    console.log(currentUser)
+    
     return (
         <div>
             {
