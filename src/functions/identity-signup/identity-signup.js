@@ -53,7 +53,10 @@ exports.handler = async function(event, context) {
         statusCode: 200,
         body: JSON.stringify({
           ...responseBody,
-          created_newuser: response
+          user_metadata:{
+            ...responseBody.user_metadata,
+            created_user: response
+          }
         })
       }
     }).catch((error) => {
