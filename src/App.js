@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 
 import "./App.css";
 
@@ -18,13 +18,19 @@ import {setCurrentUser} from './redux/user/user.actions';
 
 
 
-function App() {
+function App({currentUser, setCurrentUser}) {
 
   
 
   const identity = useIdentityContext();
   const isLoggedIn = identity && identity.isLoggedIn;
- // console.log('user-meta:',identity.user.user_metadata.created_user.ref['@ref'].id)
+  const faunadbUserId = identity 
+    && identity.user 
+    && identity.user.user_metadata 
+    && identity.user.user_metadata.created_user 
+    && identity.user.user_metadata.created_user.ref
+    && identity.user.user_metadata.created_user.ref['@ref'].id
+ 
 
   const fetchUser = (userId) => {
     return fetch(`/.netlify/functions/user-fetch`, {
@@ -39,12 +45,21 @@ function App() {
   }
 
    
-    fetchUser(248027175496712724)
-    .then(res => console.log(res))
+  useEffect(()=>{
+
+   if(faunadbUserId) {
+      fetchUser(faunadbUserId.toString())
+    .then(res => res.data)
+    .then(data => {
+      setCurrentUser({...data, faunadbUserId: faunadbUserId})
+
+    })
     .catch(err => console.log(err))
-   
+  }
+  
+  console.log('fired!',currentUser)
 
-
+  },[setCurrentUser])
 
 
   return (
@@ -65,12 +80,15 @@ function App() {
   );
 }
 
+const mapStateToProps = state => ({
+  currentUser: state.user.currentUser
+})
 
 const  mapDispatchToProps = dispatch => ({
   setCurrentUser: user => dispatch( setCurrentUser(user) )
 })
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps
 )(App);

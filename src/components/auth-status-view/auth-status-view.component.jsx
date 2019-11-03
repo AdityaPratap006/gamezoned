@@ -37,15 +37,15 @@ function AuthStatusView({setCurrentUser}) {
           onCloseDialog={() => setDialog(false)}
           onLogin={(user) => {
             console.log('hello ', user.user_metadata)
-            //setCurrentUser(user);
+            setCurrentUser(user);
           }}
           onSignup={(user) =>{ 
               console.log('welcome ', user.user_metadata)
-              //setCurrentUser(user);
+              setCurrentUser(user);
             }}
           onLogout={() => {
               console.log('bye ', name)
-              //setCurrentUser(null);
+              setCurrentUser(null);
             }}
         />
       </div>
