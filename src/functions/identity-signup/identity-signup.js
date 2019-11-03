@@ -42,11 +42,12 @@ exports.handler = async function(event, context) {
     data: userData
   }
 
-
-  return  client.query(q.Create(q.Ref('classes/users'), newUser))
+    let createdUser = null;
+    client.query(q.Create(q.Ref('classes/users'), newUser))
     .then((response) => {
       console.log('success', response)
       /* Success! return the response with statusCode 200 */
+      createdUser = response;
       return {
         statusCode: 200,
         body: JSON.stringify({...responseBody, createdUser:response})
@@ -59,4 +60,9 @@ exports.handler = async function(event, context) {
         body: JSON.stringify(error)
       }
     })
+
+    return {
+      statusCode:200,
+      body: JSON.stringify(createdUser)
+    }
 }
