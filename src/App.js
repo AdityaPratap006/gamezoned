@@ -77,8 +77,8 @@ function App({currentUser, setCurrentUser}) {
                 <Switch>
                   <Route exact path="/" render={()=>(
                     (identity && identity.isLoggedIn)
-                    ?(<SignupLoginPage/>)
-                    :(<Redirect to='/home'/>)
+                    ?(<Redirect to='/home'/>)
+                    :(<SignupLoginPage/>)
                   )}/>
                   <Route  path='/post-signup-login' component={PostSignupLoginPage}/>
                   <Route  path="/home" component={HomePage} />
