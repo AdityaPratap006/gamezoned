@@ -24,7 +24,7 @@ function AuthStatusView({currentUser, setCurrentUser, ...otherProps}) {
       <div>
         <div>
           { 
-            (!(currentUser && currentUser.hasUserSignedUp && currentUser.isUserLoggedIn))?
+            (!(identity && identity.isLoggedIn))?
             (<div className='my-btn' onClick={() => setDialog(true)} >
               Please Log In
             </div>)
