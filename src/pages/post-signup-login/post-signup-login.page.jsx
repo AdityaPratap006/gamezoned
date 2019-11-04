@@ -8,10 +8,10 @@ import { setCurrentUser } from '../../redux/user/user.actions';
 
 const PostSignupLoginPage = ({currentUser, setCurrentUser}) => {
 
-    useEffect(()=>{
-        setCurrentUser(null)
-        console.log('YEAHHHHHH')
-    })
+    // useEffect(()=>{
+    //     setCurrentUser(null)
+    //     console.log('YEAHHHHHH')
+    // })
 
     return (
         <div>
