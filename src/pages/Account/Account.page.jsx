@@ -1,36 +1,18 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 
-import IdentityModal from 'react-netlify-identity-widget';
+import AuthStatusView from '../../components/auth-status-view/auth-status-view.component';
 
 import {setCurrentUser} from '../../redux/user/user.actions';
 
 const AccountPage = ({currentUser, setCurrentUser}) => {
  
-    const [dialog, setDialog] = useState(false)
-    console.log({currentUser})
+    
+    console.log('Account')
     return (
       <div>
-        <h1>ACCOUNT!</h1>
-        <button  onClick={() => setDialog(true)} >
-                 Log Out
-        </button>
-        <IdentityModal
-            showDialog={dialog}
-            onCloseDialog={() => setDialog(false)}
-            onLogin={(user) => {
-              console.log('hello ', user.user_metadata)
-              setCurrentUser(user);
-            }}
-            onSignup={(user) =>{ 
-                console.log('welcome ', user.user_metadata)
-                //setCurrentUser(user);
-              }}
-            onLogout={() => {
-                console.log('bye')
-                setCurrentUser(null);
-              }}
-          />
+        <h1>Hi {(currentUser.user_metadata && currentUser.user_metadata.full_name) || (currentUser.name)}!</h1>
+        <AuthStatusView/>
       </div>
     );
 }

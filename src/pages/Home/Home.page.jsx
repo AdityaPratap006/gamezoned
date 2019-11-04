@@ -8,6 +8,7 @@ import { connect } from 'react-redux';
 
 const HomePage = ({currentUser}) => {
     
+    
     return (
         <div>
             {

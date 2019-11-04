@@ -1,5 +1,5 @@
 .my-btn{
-    width: auto;
+    max-width: 10rem;
     height: 2rem;
     margin:0 2rem;
 
@@ -10,7 +10,7 @@
     font-size: 1.2rem;
     border: none;
     outline: none;
-    background: transparent;
+    background: black;
 
     &:hover{
         text-decoration: underline;

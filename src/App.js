@@ -3,8 +3,11 @@ import React, {useEffect} from "react";
 import "./App.css";
 
 import  { useIdentityContext  } from 'react-netlify-identity-widget';
-import { Switch, Route, Redirect } from "react-router-dom";
+import { Switch, Route, Redirect, Router } from "react-router-dom";
 import { connect } from 'react-redux';
+
+import history from "./history";
+
 
 //components
 import Navbar from "./components/navbar/navbar.component";
@@ -12,6 +15,8 @@ import Navbar from "./components/navbar/navbar.component";
 //pages
 import HomePage from './pages/Home/Home.page';
 import AccountPage from './pages/Account/Account.page';
+import SignupLoginPage from "./pages/signup-login/signup-login.page";
+import PostSignupLoginPage from './pages/post-signup-login/post-signup-login.page';
 
 //redux actions
 import {setCurrentUser} from './redux/user/user.actions';
@@ -23,7 +28,7 @@ function App({currentUser, setCurrentUser}) {
   
 
   const identity = useIdentityContext();
-  const isLoggedIn = identity && identity.isLoggedIn;
+  
   const faunadbUserId = identity 
     && identity.user 
     && identity.user.user_metadata 
@@ -51,7 +56,7 @@ function App({currentUser, setCurrentUser}) {
       fetchUser(faunadbUserId.toString())
     .then(res => res.data)
     .then(data => {
-      setCurrentUser({...data, faunadbUserId: faunadbUserId})
+      setCurrentUser({...data, faunadbUserId: faunadbUserId, hasUserSignedUp:true, isUserLoggedIn:true})
 
     })
     .catch(err => console.log(err))
@@ -65,16 +70,23 @@ function App({currentUser, setCurrentUser}) {
   return (
    
       <div className="App">
-           <Navbar/>
-           <Switch>
-            <Route exact path="/" component={HomePage} />
-            <Route  path = '/account' render={() => (
-              currentUser?
-              <AccountPage/>
-              :<Redirect to='/' />
-            )}/>
-          </Switch>
-        
+          
+             <Router history={history}>
+               
+              {(currentUser && currentUser.hasUserSignedUp && currentUser.isUserLoggedIn)?<Navbar/>:null}
+                <Switch>
+                  <Route exact path="/" component={SignupLoginPage}/>
+                  <Route  path='/post-signup-login' component={PostSignupLoginPage}/>
+                  <Route  path="/home" component={HomePage} />
+                  <Route  path = '/account' render={() => (
+                    currentUser ?
+                    <AccountPage/>
+                    :<Redirect to='/' />
+                  )}/>
+                </Switch>
+                
+               
+            </Router>
       </div>
     
   );
