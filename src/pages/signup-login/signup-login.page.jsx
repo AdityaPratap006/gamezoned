@@ -10,7 +10,7 @@ const SignupLoginPage = () => {
             maxWidth:'100%',
             minHeight:'100vh'
         }}>
-            <h1>HELLO</h1>
+            <h1>HOLAAAA</h1>
             <AuthStatusView/>
         </div>
     )
