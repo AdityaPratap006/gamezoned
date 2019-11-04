@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 import IdentityModal, { useIdentityContext  } from 'react-netlify-identity-widget';
 import 'react-netlify-identity-widget/styles.css';
@@ -18,8 +18,8 @@ function AuthStatusView({currentUser, setCurrentUser, ...otherProps}) {
     
     
   
-  console.log(identity);   
-  console.log({otherProps})
+      
+   
     return (
       <div>
         <div>
