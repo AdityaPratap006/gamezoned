@@ -10,7 +10,7 @@ import { setCurrentUser } from '../../redux/user/user.actions';
 
 import history from '../../history';
 
-function AuthStatusView({currentUser, setCurrentUser, ...otherProps}) {
+function AuthStatusView({currentUser, setCurrentUser, setRefresh}) {
     const identity = useIdentityContext();
     const [dialog, setDialog] = useState(false);
 
@@ -49,10 +49,16 @@ function AuthStatusView({currentUser, setCurrentUser, ...otherProps}) {
               history.push('/post-signup-login')
             }}
           onLogout={() => {
+
+            if(setRefresh){
+                setRefresh(true);
+            }else{
               console.log('bye ', name)
               localStorage.clear();
               setCurrentUser(null);
               history.push('/');
+            }
+              
 
             }}
         />

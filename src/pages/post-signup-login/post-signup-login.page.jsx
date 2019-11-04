@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, { useState, useEffect} from 'react';
 
 import AuthStatusView from '../../components/auth-status-view/auth-status-view.component';
 
@@ -8,16 +8,20 @@ import { setCurrentUser } from '../../redux/user/user.actions';
 
 const PostSignupLoginPage = ({currentUser, setCurrentUser}) => {
 
+    const [refresh, setRefresh ] = useState(false);
+
     // useEffect(()=>{
     //     setCurrentUser(null)
     //     console.log('YEAHHHHHH')
     // })
 
+
+
     return (
         <div>
             <h3>You've Signed up!</h3>
             <h2>Now Please Log Out and Log In again to confirm</h2> 
-            <AuthStatusView/>
+            <AuthStatusView setRefresh={setRefresh}/>
         </div>
     )
 }
