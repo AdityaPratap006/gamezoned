@@ -75,7 +75,11 @@ function App({currentUser, setCurrentUser}) {
                
               {((currentUser && currentUser.hasUserSignedUp && currentUser.isUserLoggedIn) && (identity && identity.isLoggedIn))?<Navbar/>:null}
                 <Switch>
-                  <Route exact path="/" component={SignupLoginPage}/>
+                  <Route exact path="/" render={()=>(
+                    (identity && identity.isLoggedIn)
+                    ?(<SignupLoginPage/>)
+                    :(<Redirect to='/home'/>)
+                  )}/>
                   <Route  path='/post-signup-login' component={PostSignupLoginPage}/>
                   <Route  path="/home" component={HomePage} />
                   <Route  path = '/account' render={() => (
