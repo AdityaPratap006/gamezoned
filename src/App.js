@@ -73,7 +73,7 @@ function App({currentUser, setCurrentUser}) {
           
              <Router history={history}>
                
-              {(currentUser && currentUser.hasUserSignedUp && currentUser.isUserLoggedIn)?<Navbar/>:null}
+              {((currentUser && currentUser.hasUserSignedUp && currentUser.isUserLoggedIn) && (identity && identity.isLoggedIn))?<Navbar/>:null}
                 <Switch>
                   <Route exact path="/" component={SignupLoginPage}/>
                   <Route  path='/post-signup-login' component={PostSignupLoginPage}/>
