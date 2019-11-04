@@ -10,7 +10,7 @@ import { setCurrentUser } from '../../redux/user/user.actions';
 
 import history from '../../history';
 
-function AuthStatusView({currentUser, setCurrentUser, setRefresh}) {
+function AuthStatusView({ setCurrentUser, setRefresh, refresh}) {
     const identity = useIdentityContext();
     const [dialog, setDialog] = useState(false);
 
@@ -50,8 +50,8 @@ function AuthStatusView({currentUser, setCurrentUser, setRefresh}) {
             }}
           onLogout={() => {
 
-            if(setRefresh){
-                setRefresh(true);
+            if(setRefresh && refresh){
+                setRefresh(!refresh);
             }else{
               console.log('bye ', name)
               localStorage.clear();
