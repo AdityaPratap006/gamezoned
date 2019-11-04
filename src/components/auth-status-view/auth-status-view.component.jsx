@@ -18,7 +18,7 @@ function AuthStatusView({currentUser, setCurrentUser, ...otherProps}) {
     
     
   
-      
+  console.log(identity);   
    
     return (
       <div>
