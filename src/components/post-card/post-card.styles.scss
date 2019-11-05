@@ -1,5 +1,5 @@
 .post-card{
-    width:96%;
+    width:87%;
     min-height: 380px;
     height: 90%;
     border-radius: 15px;
@@ -10,5 +10,10 @@
     }
     h3{
         color: whitesmoke;
+    }
+}
+@media only screen and (min-width:660px){
+    .post-card{
+        width: 90%;
     }
 }
