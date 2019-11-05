@@ -1,0 +1,36 @@
+.signup-login-page{
+    width:100vw;
+    max-width: 100%;
+    min-height: 100vh;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+
+    background: #232526;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+
+    .welcome-card{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        width:18rem;
+        height: 24rem;
+        border-radius: 10px;
+        box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
+        transition: 0.3s ease-in-out;
+
+        &:hover{
+            transform: scale(1.02);
+        }
+
+        h1{
+            color: whitesmoke;
+        }
+    }
+}

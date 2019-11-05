@@ -9,10 +9,10 @@ import './navbar.styles.scss';
 const Navbar = () => {
     return (
         <div className = 'navbar' >
-            <Link className='menu-item' to='/home'> Home </Link>
-            <Link className='menu-item' to='/top-trending'> Top Trending </Link>
-            <Link className='menu-item' to='/my-posts'> My Posts </Link>
-            <Link className='menu-item' to='/account'>Account</Link>
+            <Link className='menu-item' to='/home'> Hm </Link>
+            <Link className='menu-item' to='/top-trending'> Tr </Link>
+            <Link className='menu-item' to='/my-posts'> My </Link>
+            <Link className='menu-item' to='/account'>Ac</Link>
         </div>
     )
 }

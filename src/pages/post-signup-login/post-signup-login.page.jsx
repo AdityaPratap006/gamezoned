@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link } from 'react-router-dom';
+import './post-signup-login.styles.scss';
 
 import AuthStatusView from '../../components/auth-status-view/auth-status-view.component';
 
@@ -16,12 +16,12 @@ const PostSignupLoginPage = ({currentUser}) => {
 
 
     return (
-        <div>
+        <div className='post-signup-login-page'>
             {
                 (identity && identity.isLoggedIn)?(
                 <>
-                    <h3>You've Signed up!</h3>
-                    <h2>Now Please Refresh/Reload the page and Log In again to confirm</h2>
+                    <h2>You've Signed up!</h2>
+                    <h3>Now Please Refresh/Reload the page and Log In again to confirm</h3>
                 </>):(
                     <h2>Please Log In to continue</h2>
                 )
@@ -29,7 +29,7 @@ const PostSignupLoginPage = ({currentUser}) => {
              {
                  !(identity && identity.isLoggedIn)
                  ?<AuthStatusView />
-                 :<button onClick={()=>{window.location.reload()}}>Refresh</button>
+                 :<button className='refresh-button' onClick={()=>{window.location.reload()}}>Refresh</button>
                  
              }  
         </div>    
