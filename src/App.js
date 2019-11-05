@@ -66,7 +66,7 @@ function App({currentUser, setCurrentUser}) {
 
   // },[setCurrentUser])
 
-  console.log({currentUser})
+  
 
   return (
    
