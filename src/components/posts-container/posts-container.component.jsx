@@ -5,23 +5,23 @@ import { connect } from 'react-redux';
 
 import PostCard from '../post-card/post-card.component';
 
-const PostsContainer = ({ postsList }) => {
+const PostsContainer = ({ all_posts }) => {
 
-    const renderPosts = postsList.map(post => (<PostCard
-        key={post.ref['@ref'].id}
-        id={post.ref['@ref'].id}
-        data={post.data}
-    />))
+      
 
     return (
-        postsList
+       all_posts
             ? (
                 <React.Fragment>
                      
                     <div className='posts-container'>
                         
                         {
-                            renderPosts
+                            all_posts.map(post => (<PostCard
+                                key={post.ref['@ref'].id}
+                                id={post.ref['@ref'].id}
+                                data={post.data}
+                            />))
                         }
                          
                     </div>
@@ -34,7 +34,7 @@ const PostsContainer = ({ postsList }) => {
 }
 
 const mapStateToProps = state => ({
-    postsList: state.all_posts.all_posts
+    all_posts: state.all_posts.all_posts
 })
 
 export default connect(
