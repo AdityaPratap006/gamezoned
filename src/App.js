@@ -81,7 +81,11 @@ function App({currentUser, setCurrentUser}) {
                     ?(<Redirect to='/home'/>)
                     :(<SignupLoginPage/>)
                   )}/>
-                  <Route  path='/post-signup-login' component={PostSignupLoginPage}/>
+                  <Route  path='/post-signup-login' render={() => (
+                      !(currentUser && currentUser.hasUserSignedUp && currentUser.isUserLoggedIn)
+                      ?<PostSignupLoginPage/>
+                      :<Redirect to='/home'/>
+                    )}/>
                   <Route  path="/home" render={()=>(
                     (identity && identity.isLoggedIn)
                     ?(<HomePage/>)
