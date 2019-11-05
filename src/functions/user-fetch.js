@@ -1,4 +1,3 @@
-/* code from functions/todos-read.js */
 /* Import faunaDB sdk */
 const faunadb = require('faunadb')
 
