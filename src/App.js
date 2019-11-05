@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React from "react";
 
 import "./App.css";
 
@@ -29,43 +29,44 @@ function App({currentUser, setCurrentUser}) {
 
   const identity = useIdentityContext();
   
-  const faunadbUserId = identity 
-    && identity.user 
-    && identity.user.user_metadata 
-    && identity.user.user_metadata.created_user 
-    && identity.user.user_metadata.created_user.ref
-    && identity.user.user_metadata.created_user.ref['@ref'].id
+  // const faunadbUserId = identity 
+  //   && identity.user 
+  //   && identity.user.user_metadata 
+  //   && identity.user.user_metadata.created_user 
+  //   && identity.user.user_metadata.created_user.ref
+  //   && identity.user.user_metadata.created_user.ref['@ref'].id
  
 
-  const fetchUser = (userId) => {
-    return fetch(`/.netlify/functions/user-fetch`, {
-      method: 'POST',
-      body: JSON.stringify({
-        id:userId
-      })
+  // const fetchUser = (userId) => {
+  //   return fetch(`/.netlify/functions/user-fetch`, {
+  //     method: 'POST',
+  //     body: JSON.stringify({
+  //       id:userId
+  //     })
       
-    }).then(response => {
-      return response.json()
-    })
-  }
+  //   }).then(response => {
+  //     return response.json()
+  //   })
+  // }
 
    
-  useEffect(()=>{
+  // useEffect(()=>{
 
-   if(faunadbUserId) {
-      fetchUser(faunadbUserId.toString())
-    .then(res => res.data)
-    .then(data => {
-      setCurrentUser({...data, faunadbUserId: faunadbUserId, hasUserSignedUp:true, isUserLoggedIn:true})
+  //  if(faunadbUserId) {
+  //     fetchUser(faunadbUserId.toString())
+  //   .then(res => res.data)
+  //   .then(data => {
+  //     setCurrentUser({...data, faunadbUserId: faunadbUserId, hasUserSignedUp:true, isUserLoggedIn:true})
 
-    })
-    .catch(err => console.log(err))
-  }
+  //   })
+  //   .catch(err => console.log(err))
+  // }
   
-  console.log('fired!',currentUser)
+  // console.log('User is: ',currentUser)
 
-  },[setCurrentUser])
+  // },[setCurrentUser])
 
+  console.log({currentUser})
 
   return (
    
@@ -81,7 +82,11 @@ function App({currentUser, setCurrentUser}) {
                     :(<SignupLoginPage/>)
                   )}/>
                   <Route  path='/post-signup-login' component={PostSignupLoginPage}/>
-                  <Route  path="/home" component={HomePage} />
+                  <Route  path="/home" render={()=>(
+                    (identity && identity.isLoggedIn)
+                    ?(<HomePage/>)
+                    :(<Redirect to='/'/>) 
+                    )}/>
                   <Route  path = '/account' render={() => (
                     currentUser ?
                     <AccountPage/>
