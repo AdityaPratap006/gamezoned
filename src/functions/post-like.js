@@ -37,6 +37,10 @@ exports.handler = async (event, context) => {
             .query(q.Create(q.Ref("classes/likes"), like))
             .then(response => {
               console.log("success", response);
+              return {
+                statusCode: 200,
+                body: JSON.stringify(response)
+              };
             })
             .catch(error => {
               console.log("error", error);
