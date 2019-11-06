@@ -25,7 +25,7 @@ exports.handler = async (event, context) => {
       console.log(`Function 'todo-update' invoked. update id: ${data.postId}`)
       return client.query(q.Update(q.Ref(`classes/todos/${data.postId}`), {
           data : { 
-              likeCount: q.Select('likeCount') + 1
+              likeCount: /*q.Select('likeCount') + */1
             }
         }))
         .then((response) => {
