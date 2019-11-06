@@ -7,15 +7,15 @@ import PostCard from '../post-card/post-card.component';
 
 const PostsContainer = ({ all_posts }) => {
 
-      
+
 
     return (
-       all_posts
+        all_posts
             ? (
                 <React.Fragment>
-                     
+
                     <div className='posts-container'>
-                        
+
                         {
                             all_posts.map(post => (<PostCard
                                 key={post.ref['@ref'].id}
@@ -23,7 +23,7 @@ const PostsContainer = ({ all_posts }) => {
                                 data={post.data}
                             />))
                         }
-                         
+
                     </div>
                 </React.Fragment>
 

@@ -39,7 +39,7 @@ exports.handler = async (event, context) => {
               console.log("success", response);
               return {
                 statusCode: 200,
-                body: JSON.stringify(response)
+                body: JSON.stringify({...res,  likeCount: res.data.likeCount + 1})//return the post data after like
               };
             })
             .catch(error => {

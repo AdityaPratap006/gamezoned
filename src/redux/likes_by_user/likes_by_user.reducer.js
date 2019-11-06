@@ -13,12 +13,15 @@ const likesByUserReducer = (state = initialState, action) => {
                 likes_by_user:action.payload
             }
         case ADD_LIKE_BY_USER:
+
+          
             return {
                 ...state,
                  likes_by_user:[
                         ...state.likes_by_user,
                          action.payload
-                ]
+                    ]
+               
                 
             }
     

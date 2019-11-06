@@ -1,11 +1,11 @@
 import { SET_LIKES_BY_USER, ADD_LIKE_BY_USER } from './likes_by_user.types';
 
-export const setLikesByUser = (likes) => ({
+export const setLikesByUser = (allLikedPosts) => ({
     type: SET_LIKES_BY_USER,
-    payload: likes
+    payload: allLikedPosts
 })
 
-export const addLikeByUser = (like) => ({
+export const addLikeByUser = (likedPost) => ({
     type: ADD_LIKE_BY_USER,
-    payload: like
+    payload: likedPost
 })
