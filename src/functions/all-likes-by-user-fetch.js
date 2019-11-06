@@ -9,7 +9,7 @@ const client = new faunadb.Client({
 exports.handler = (event, context) => {
   const id = JSON.parse(event.body);
 
-  console.log("Function `all-likes-fetch` invoked");
+  console.log("Function `all-likes-by-user-fetch` invoked");
   return client
     .query(q.Paginate(q.Match(q.Ref("indexes/all_likes"))))
     .then(response => {
