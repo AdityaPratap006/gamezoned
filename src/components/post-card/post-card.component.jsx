@@ -3,7 +3,7 @@ import './post-card.styles.scss';
 
 import { connect } from 'react-redux';
 
-const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, likeCount}, currentUser}) => {
+const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, likeCount}, currentUser, likes_by_user}) => {
 
     /*const [userOfThisPost, setUserOfThisPost] = useState(null);
 
@@ -31,8 +31,14 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
         .catch(err => console.log(err))
 
     },[userOfThisPost])*/
+    
+    const [liked, setLiked] = useState((likes_by_user.filter(like => (like.postId === id)).length > 0)?true:false)
+    const [postLikeCount, setPostLikeCount] = useState(likeCount);
 
     const likePost = () => {
+
+        setLiked(true);
+        setPostLikeCount(postLikeCount + 1)
 
         return fetch('/.netlify/functions/post-like',{
             method:"POST",
@@ -44,9 +50,12 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
         .then(res => res.json())
         .then(data => {
             console.log('Liked!')
+            
         })
         .catch(err => console.log(err))
     }
+
+     
 
     return (
         <div className='post-card' >
@@ -59,16 +68,19 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
                 {developedBy}
             </h3>
             <p onClick={() => {
-               likePost()
+               if(!liked){
+                   likePost()
+                }
             }}>
-                {likeCount} Likes
+              {liked?'liked!!':'_ _'}  {postLikeCount} Likes
             </p>
         </div>
     )
 }
 
 const mapStateToProps = state => ({
-    currentUser: state.user.currentUser
+    currentUser: state.user.currentUser,
+    likes_by_user: state.likes_by_user.likes_by_user
 })
 
 export default connect(

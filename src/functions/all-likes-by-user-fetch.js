@@ -7,7 +7,7 @@ const client = new faunadb.Client({
 });
 
 exports.handler = (event, context) => {
-  const id = JSON.parse(event.body);
+  const { id } = JSON.parse(event.body);
 
   console.log("Function `all-likes-by-user-fetch` invoked");
   return client
@@ -15,7 +15,7 @@ exports.handler = (event, context) => {
     .then(response => {
       const likeRefs = response.data;
       console.log("Like refs", likeRefs);
-      console.log(`${likeRefs.length} likes found`);
+      
       // create new query out of todo refs. http://bit.ly/2LG3MLg
       const getAllLikesDataQuery = likeRefs.map(ref => {
         return q.Get(ref);
@@ -23,8 +23,8 @@ exports.handler = (event, context) => {
       // then query the refs
       return client.query(getAllLikesDataQuery).then(ret => {
 
-        const result = ret.filter(likeObj => (likeObj.data.userId === '212354675677'));
-
+        const result = ret.filter(likeObj => (likeObj.data.userId === id));
+        console.log(`${result.length} likes by user id ${id} found`);
         return {
           statusCode: 200,
           body: JSON.stringify(result)
