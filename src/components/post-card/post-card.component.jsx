@@ -32,7 +32,7 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
     //let displayLikes = 0;
 
     useEffect(()=>{
-        setLiked((likes_by_user.filter(like => (like.data.postId === id)).length > 0))
+        setLiked((likes_by_user.filter(like => (like.ref['@ref'].id === id)).length > 0))
         setPostLikeCount(likeCount)
 
     })
