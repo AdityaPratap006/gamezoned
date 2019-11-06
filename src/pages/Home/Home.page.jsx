@@ -34,18 +34,24 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
         fetchAllPosts()
         .then(postsData => {
             
+            console.log('hey')
 
-            fetchLikesByCurrentUser(currentUser.faunadbUserId)
-            .then(likesData => {
-                setAllPosts(postsData);
-                setLikesByUser(likesData);
-            })
+
+            if(currentUser){
+                fetchLikesByCurrentUser(currentUser.faunadbUserId)
+                .then(likesData => {
+                    setAllPosts(postsData);
+                    setLikesByUser(likesData);
+                })
+                .catch(err => console.log(err))
+            }
+           
         })
         .catch(err => console.log(err))
 
 
 
-    }, [setAllPosts, setLikesByUser, currentUser.faunadbUserId])
+    } )
     
     return (
         <div className='home-page'>
