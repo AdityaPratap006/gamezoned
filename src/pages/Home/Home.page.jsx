@@ -20,7 +20,7 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
     }
 
     const fetchAllLikesByCurrentUser = (userId) => {
-        return fetch('/.netlify/functions/all-posts-fetch',{
+        return fetch('/.netlify/functions/all-likes-by-user-fetch',{
             method:'POST',
             body: JSON.stringify({
                 id:userId
