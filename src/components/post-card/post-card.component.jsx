@@ -39,11 +39,12 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
             body:JSON.stringify({
                 postId:id,
                 userId:currentUser.faunadbUserId,
-                currentLikeCount:likeCount
             })
         })
         .then(res => res.json())
-        .then(console.log)
+        .then(data => {
+            console.log('Liked!')
+        })
         .catch(err => console.log(err))
     }
 
