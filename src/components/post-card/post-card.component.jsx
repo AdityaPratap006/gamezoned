@@ -38,7 +38,8 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
             method:"POST",
             body:JSON.stringify({
                 postId:id,
-                userId:currentUser.faunadbUserId
+                userId:currentUser.faunadbUserId,
+                currentLikeCount:likeCount
             })
         })
         .then(res => res.json())
