@@ -19,7 +19,7 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
             .then(res => res.json())
     }
 
-    const fetchAllLikesByCurrentUser = (userId) => {
+    const fetchLikesByCurrentUser = (userId) => {
         return fetch('/.netlify/functions/all-likes-by-user-fetch',{
             method:'POST',
             body: JSON.stringify({
@@ -35,7 +35,7 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
         .then(postsData => {
             
 
-            fetchAllLikesByCurrentUser(currentUser.faunadbUserId)
+            fetchLikesByCurrentUser(currentUser.faunadbUserId)
             .then(likesData => {
                 setAllPosts(postsData);
                 setLikesByUser(likesData);
