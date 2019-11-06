@@ -36,10 +36,10 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
 
         return fetch('/.netlify/functions/post-like',{
             method:"POST",
-            data:{
+            body:JSON.stringify({
                 postId:id,
                 userId:currentUser.faunadbUserId
-            }
+            })
         })
         .then(res => res.json())
         .then(console.log)
