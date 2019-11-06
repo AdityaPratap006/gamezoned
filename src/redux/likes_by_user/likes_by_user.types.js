@@ -1,0 +1,1 @@
+export const SET_LIKES_BY_USER = 'SET_LIKES_BY_USER';
