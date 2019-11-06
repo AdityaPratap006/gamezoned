@@ -23,7 +23,7 @@ exports.handler = (event, context) => {
       // then query the refs
       return client.query(getAllLikesDataQuery).then(ret => {
 
-        const result = ret.filter(likeObj => (likeObj.data.userId === id));
+        const result = ret.filter(likeObj => (likeObj.data.userId === '212354675677'));
 
         return {
           statusCode: 200,
