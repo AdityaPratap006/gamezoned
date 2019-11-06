@@ -34,7 +34,6 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
         fetchAllPosts()
         .then(postsData => {
             
-            console.log('hey')
 
 
             if(currentUser){
@@ -51,7 +50,7 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
 
 
 
-    } )
+    }, [setAllPosts, setLikesByUser, currentUser])
     
     return (
         <div className='home-page'>
