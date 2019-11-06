@@ -7,18 +7,18 @@ const client = new faunadb.Client({
 })
 
 exports.handler = (event, context) => {
-  console.log('Function `all-posts-fetch` invoked')
-  return client.query(q.Paginate(q.Match(q.Ref('indexes/all_posts'))))
+  console.log('Function `all-likes-fetch` invoked')
+  return client.query(q.Paginate(q.Match(q.Ref('indexes/all_likes'))))
     .then((response) => {
-      const postRefs = response.data 
-      console.log('Post refs', postRefs)
-      console.log(`${postRefs.length} todos found`)
+      const likeRefs = response.data 
+      console.log('Like refs', likeRefs)
+      console.log(`${likeRefs.length} todos found`)
       // create new query out of todo refs. http://bit.ly/2LG3MLg
-      const getAllPostsDataQuery = postRefs.map((ref) => {
+      const getAllLikesDataQuery = likeRefs.map((ref) => {
         return q.Get(ref)
       })
       // then query the refs
-      return client.query(getAllPostsDataQuery).then((ret) => {
+      return client.query(getAllLikesDataQuery).then((ret) => {
         return {
           statusCode: 200,
           body: JSON.stringify(ret)
