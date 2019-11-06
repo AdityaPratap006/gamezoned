@@ -18,56 +18,11 @@ import AccountPage from './pages/Account/Account.page';
 import SignupLoginPage from "./pages/signup-login/signup-login.page";
 import PostSignupLoginPage from './pages/post-signup-login/post-signup-login.page';
 
-//redux actions
-import {setCurrentUser} from './redux/user/user.actions';
 
-
-
-function App({currentUser, setCurrentUser}) {
-
+function App({currentUser }) {
   
-
   const identity = useIdentityContext();
-  
-  // const faunadbUserId = identity 
-  //   && identity.user 
-  //   && identity.user.user_metadata 
-  //   && identity.user.user_metadata.created_user 
-  //   && identity.user.user_metadata.created_user.ref
-  //   && identity.user.user_metadata.created_user.ref['@ref'].id
  
-
-  // const fetchUser = (userId) => {
-  //   return fetch(`/.netlify/functions/user-fetch`, {
-  //     method: 'POST',
-  //     body: JSON.stringify({
-  //       id:userId
-  //     })
-      
-  //   }).then(response => {
-  //     return response.json()
-  //   })
-  // }
-
-   
-  // useEffect(()=>{
-
-  //  if(faunadbUserId) {
-  //     fetchUser(faunadbUserId.toString())
-  //   .then(res => res.data)
-  //   .then(data => {
-  //     setCurrentUser({...data, faunadbUserId: faunadbUserId, hasUserSignedUp:true, isUserLoggedIn:true})
-
-  //   })
-  //   .catch(err => console.log(err))
-  // }
-  
-  // console.log('User is: ',currentUser)
-
-  // },[setCurrentUser])
-
-  
-
   return (
    
       <div className="App">
@@ -109,11 +64,9 @@ const mapStateToProps = state => ({
   currentUser: state.user.currentUser
 })
 
-const  mapDispatchToProps = dispatch => ({
-  setCurrentUser: user => dispatch( setCurrentUser(user) )
-})
+ 
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
+  null
 )(App);
