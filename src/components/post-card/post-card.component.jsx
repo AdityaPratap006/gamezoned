@@ -3,14 +3,14 @@ import './post-card.styles.scss';
 
 import { connect } from 'react-redux';
 
-import { addLikeByUser } from '../../redux/likes_by_user/likes_by_user.actions';
+import { addLikeByUser, removeLikeByUser } from '../../redux/likes_by_user/likes_by_user.actions';
 
-const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, likeCount}, currentUser, likes_by_user, addLikeByUser}) => {
+const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, likeCount}, currentUser, likes_by_user, addLikeByUser, removeLikeByUser}) => {
  
     //const [liked, setLiked] = useState((likes_by_user.filter(like => (like.ref['@ref'].id === id)).length > 0))
     const [postLikeCount, setPostLikeCount] = useState(likeCount);
 
-    const likePost = () => {
+    const likePost = async () => {
 
         return fetch('/.netlify/functions/post-like',{
             method:"POST",
@@ -28,25 +28,32 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
         .catch(err => console.log(err))
     }
 
-    //let displayLikes = 0;
 
-    // useEffect(()=>{
-    //     setLiked((likes_by_user.filter(like => (like.ref['@ref'].id === id)).length > 0))
-    //     setPostLikeCount(likeCount)
+    const unlikePost = async () => {
 
-    // },[id,likeCount,likes_by_user])
+        return fetch('/.netlify/functions/post-unlike',{
+            method:"POST",
+            body:JSON.stringify({
+                postId:id,
+                userId:currentUser.faunadbUserId,
+            })
+        })
+        .then(res => res.json())
+        .then(like => {
+            console.log('deleted like',like)
+            removeLikeByUser(like);
+            setPostLikeCount(likeCount-1);
+        })
+        .catch(err => console.log(err))
+    }
 
- 
     
     const isPostLikedByUser = (likes_by_user.find(like => {
         //console.log('likedPost: ',like)
         return (like.ref['@ref'].id === id)
     }));
     
-    //const displayLikeCountIndex = (likes_by_user.findIndex(like => (like.ref['@ref'].id === id)))
-
-    //const displayLikeCount = displayLikeCountIndex && likes_by_user[displayLikeCountIndex] && likes_by_user[displayLikeCountIndex].likeCount;
-
+    
     return (
         <div className='post-card' >
             <h3>{postedByUserName} is playing</h3>
@@ -58,8 +65,11 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
                 {developedBy}
             </h3>
             <p onClick={() => {
+
                if(!isPostLikedByUser){
-                   likePost()
+                   likePost();
+                }else{
+                    unlikePost();
                 }
             }}>
               {isPostLikedByUser?'liked!!':'_ _'}  { postLikeCount } Likes
@@ -74,7 +84,8 @@ const mapStateToProps = state => ({
 })
 
 const mapDispatchToProps = dispatch => ({
-    addLikeByUser: like => dispatch(addLikeByUser(like))
+    addLikeByUser: like => dispatch(addLikeByUser(like)),
+    removeLikeByUser: like => dispatch(removeLikeByUser(like))
 })
 
 export default connect(

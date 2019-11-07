@@ -1,2 +1,3 @@
 export const SET_LIKES_BY_USER = 'SET_LIKES_BY_USER';
 export const ADD_LIKE_BY_USER = 'ADD_LIKE_BY_USER';
+export const REMOVE_LIKE_BY_USER = 'REMOVE_LIKE_BY_USER';

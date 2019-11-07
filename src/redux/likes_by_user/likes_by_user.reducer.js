@@ -1,4 +1,4 @@
-import { SET_LIKES_BY_USER, ADD_LIKE_BY_USER } from './likes_by_user.types';
+import { SET_LIKES_BY_USER, ADD_LIKE_BY_USER, REMOVE_LIKE_BY_USER } from './likes_by_user.types';
 
 const initialState = {
     likes_by_user: []
@@ -12,18 +12,20 @@ const likesByUserReducer = (state = initialState, action) => {
                 ...state,
                 likes_by_user:action.payload
             }
-        case ADD_LIKE_BY_USER:
-
-          
+        case ADD_LIKE_BY_USER: 
             return {
                 ...state,
                  likes_by_user:[
                         ...state.likes_by_user,
                          action.payload
-                    ]
-               
-                
+                    ]     
             }
+        
+        case REMOVE_LIKE_BY_USER:
+            return {
+                ...state,
+                 likes_by_user: state.likes_by_user.filter(like => like.ref['@ref'].id === action.payload.ref['@ref'].id)
+            } 
     
         default:
             return {

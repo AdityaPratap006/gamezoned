@@ -33,14 +33,24 @@ exports.handler = async (event, context) => {
 
         //deleting!
         return  client.query(q.Delete(q.Select("ref",q.Get(q.Match(q.Index('like_by_post_user'),[userId,postId])))))
-        .then((response) => {
-          console.log('HERE I AM!!!', response)
+        .then((res) => {
+          console.log('HERE I AM!!!', res)
           console.log('Deleted!')
-          /* Success! return the response with statusCode 200 */
-          return {
-            statusCode: 200,
-            body: JSON.stringify(response)
-          }
+          /* Success! now  return the post with that postId*/
+          return client.query(q.Get(q.Ref(`classes/posts/${postId}`)))
+          .then((postData) => {
+            console.log('success', postData)
+            return {
+              statusCode: 200,
+              body: JSON.stringify(postData)
+            }
+          }).catch((error) => {
+            console.log('error', error)
+            return {
+              statusCode: 400,
+              body: JSON.stringify(error)
+            }
+          })
         }).catch((error) => {
           console.log('error', error)
           /* Error! return the error with statusCode 400 */
