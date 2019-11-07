@@ -1,6 +1,9 @@
 import React from 'react';
 import './share-post.styles.scss';
 
+import { connect } from 'react-redux';
+
+
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 import TextField from '@material-ui/core/TextField';
@@ -10,12 +13,37 @@ import Select from '@material-ui/core/Select';
 import MenuItem from '@material-ui/core/MenuItem';
 
 
-const SharePostPage = () => {
+const sharePost = async (userId, userName, title, year, developedBy, type)=>{
+
+   return fetch('/.netlify/functions/post-create',{
+        method:"POST",
+        body:JSON.stringify({
+            postedByUserId: userId,
+            postedByUserName: userName,
+            title: title,
+            year: year,
+            developedBy: developedBy,
+            type: type,
+            createdAt: new Date().toLocaleString(),
+            likeCount: 0
+        })
+    })
+    .then(res => res.json())
+}
+
+
+const SharePostPage = ({userId, userName}) => {
+
+    console.log(userId, userName);
 
     const [year, setYear] = React.useState('');
     const [title, setTitle] = React.useState('');
     const [developer, setDeveloper] = React.useState('');
     const [type, setType] = React.useState('');
+
+    React.useEffect(() => {
+
+    },[userId, userName])
 
     const handleYearChange = event => {
         setYear(event.target.value);
@@ -43,13 +71,43 @@ const SharePostPage = () => {
 
     const typeMenuItemsList = gameTypesArray.map(type => <MenuItem key={type} value={type}>{type}</MenuItem>);
 
+    const isSubmissionValid = () => {
+        if (title === '' ||  title === null || title === undefined) {
+            return false;
+        }
+        if (developer === '' || developer === null || developer === undefined) {
+            return false;
+        }
+        if (year === '' || year === null || year === undefined) {
+            return false;
+        }
+        if (type === '' || type === null || type === undefined) {
+            return false;
+        }
+
+        return true;
+    }
+
+    const handleSubmit = () => {
+
+        if(isSubmissionValid()){
+            
+            sharePost(userId, userName, title, year, developer, type)
+            .then(response => {
+
+                console.log('posted!', response)
+                window.alert('Post Shared! :)')
+            })
+            .catch(err => console.log(err))
+
+        }else{
+            window.alert('Please fill all the fields!')
+        }
+    }
+
     return (
         <div className='share-post-page'>
-            <h4 onClick={() => {
-                if (title === '' || title === null) {
-                    window.alert('All fields are required!')
-                }
-            }} >Share with us the Game you are playing this week!</h4>
+            <h4>Share with us the Game you are playing this week!</h4>
             <Grid container spacing={3} className='share-post-container'>
                 <Grid item xs={12}>
                     <Paper className='paper' >
@@ -120,8 +178,20 @@ const SharePostPage = () => {
                     </Paper>
                 </Grid>
             </Grid>
+            <div className='submit-post-btn'  onClick={handleSubmit} >
+                POST
+            </div>
         </div>
     )
 }
 
-export default SharePostPage
+const mapStateToProps = state =>({
+    userId: state.user.currentUser.faunadbUserId,
+    userName: state.user.currentUser.data.name,
+})
+
+
+export default connect(
+    mapStateToProps,
+    null
+)( SharePostPage )

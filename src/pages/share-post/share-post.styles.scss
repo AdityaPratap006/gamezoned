@@ -16,6 +16,28 @@
         color:whitesmoke;
     }
 
+    .submit-post-btn{
+        width: 10rem;
+        height: 2rem;
+        margin: 2rem;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        color:#fff;
+        font-size: 1.2rem;
+        border: none;
+        outline: none;
+        background: #3f51b5;
+        padding: 0.5rem;
+        border-radius: 5px;
+
+        &:hover{
+            border:1px solid #fff;
+            cursor: pointer;
+        }
+    }
+
     .share-post-container{
         
         max-width: 95%;
