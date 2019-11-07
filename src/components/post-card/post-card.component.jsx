@@ -11,10 +11,13 @@ import { addLikeByUser, removeLikeByUser } from '../../redux/likes_by_user/likes
 const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, likeCount}, currentUser, likes_by_user, addLikeByUser, removeLikeByUser, isPostLikedByUser}) => {
  
     const [clickable, setClickable] = useState(true)
+    const [likedUI, setLikedUI ] = useState(isPostLikedByUser);
     const [postLikeCount, setPostLikeCount] = useState(likeCount);
 
     const likePost = async () => {
         setClickable(false);
+        setLikedUI(true);
+        setPostLikeCount(likeCount+1);
         return fetch('/.netlify/functions/post-like',{
             method:"POST",
             body:JSON.stringify({
@@ -26,7 +29,6 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
         .then(likeData => {
             console.log('fetched like data',likeData)
             addLikeByUser(likeData);
-            setPostLikeCount(likeCount+1);
            setClickable(true)
         })
         .catch(err => console.log(err))
@@ -35,6 +37,8 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
 
     const unlikePost = async () => {
         setClickable(false)
+        setLikedUI(false)
+        setPostLikeCount(likeCount-1);
         return fetch('/.netlify/functions/post-unlike',{
             method:"POST",
             body:JSON.stringify({
@@ -46,7 +50,7 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
         .then(like => {
             console.log('deleted like',like)
             removeLikeByUser(like);
-            setPostLikeCount(likeCount-1);
+            
             setClickable(true)
         })
         .catch(err => console.log(err))
@@ -81,7 +85,7 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
                      }
                 }
             }}>
-              {isPostLikedByUser?'liked!!':'_ _'}  { postLikeCount } Likes
+              {likedUI?'liked!!':'_ _'}  { postLikeCount } Likes
             </p>
         </div>
     )
