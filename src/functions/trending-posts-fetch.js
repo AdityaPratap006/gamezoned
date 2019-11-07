@@ -7,8 +7,8 @@ const client = new faunadb.Client({
 })
 
 exports.handler = (event, context) => {
-  console.log('Function `all-posts-fetch` invoked')
-  return client.query(q.Paginate(q.Match(q.Ref('indexes/all_posts'))))
+  console.log('Function `trending-posts-fetch` invoked')
+  return client.query(q.Paginate(q.Match(q.Ref('indexes/post_sort_by_likeCount_desc'))))
     .then((response) => {
       const postRefs = response.data 
       console.log('Post refs', postRefs)

@@ -18,6 +18,7 @@ import AccountPage from './pages/Account/Account.page';
 import SignupLoginPage from "./pages/signup-login/signup-login.page";
 import PostSignupLoginPage from './pages/post-signup-login/post-signup-login.page';
 import SharePostPage from './pages/share-post/share-post.page';
+import TrendingPage from './pages/Trending/Trending.page';
 
 function App({currentUser }) {
   
@@ -52,6 +53,12 @@ function App({currentUser }) {
                 <Route  path="/home" render={()=>(
                   (identity && identity.isLoggedIn)
                   ?(<HomePage/>)
+                  :(<Redirect to='/'/>) 
+                  )}/>
+
+                <Route  path="/trending" render={()=>(
+                  (currentUser)
+                  ?(<TrendingPage/>)
                   :(<Redirect to='/'/>) 
                   )}/>
 

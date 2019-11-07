@@ -42,6 +42,7 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
                 return (new Date(postB.data.createdAt) <= new Date(postA.data.createdAt))?-1:1; 
             }
 
+            //most recent posts
             postsData.sort(compareByTimePosted);
 
             if(currentUser){
