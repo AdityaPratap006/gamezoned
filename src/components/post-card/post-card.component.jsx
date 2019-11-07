@@ -5,13 +5,13 @@ import { connect } from 'react-redux';
 
 import { addLikeByUser, removeLikeByUser } from '../../redux/likes_by_user/likes_by_user.actions';
 
-const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, likeCount}, currentUser, likes_by_user, addLikeByUser, removeLikeByUser}) => {
+const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, likeCount}, currentUser, likes_by_user, addLikeByUser, removeLikeByUser, isPostLikedByUser}) => {
  
-    //const [liked, setLiked] = useState((likes_by_user.filter(like => (like.ref['@ref'].id === id)).length > 0))
+    const [clickable, setClickable] = useState(true)
     const [postLikeCount, setPostLikeCount] = useState(likeCount);
 
-    const likePost = async () => {
-
+    const likePost =  () => {
+        setClickable(false);
         return fetch('/.netlify/functions/post-like',{
             method:"POST",
             body:JSON.stringify({
@@ -24,13 +24,14 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
             console.log('fetched like data',likeData)
             addLikeByUser(likeData);
             setPostLikeCount(likeCount+1);
+           setClickable(true)
         })
         .catch(err => console.log(err))
     }
 
 
-    const unlikePost = async () => {
-
+    const unlikePost =  () => {
+        setClickable(false)
         return fetch('/.netlify/functions/post-unlike',{
             method:"POST",
             body:JSON.stringify({
@@ -43,16 +44,10 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
             console.log('deleted like',like)
             removeLikeByUser(like);
             setPostLikeCount(likeCount-1);
+            setClickable(true)
         })
         .catch(err => console.log(err))
     }
-
-    
-    const isPostLikedByUser = (likes_by_user.find(like => {
-        //console.log('likedPost: ',like)
-        return (like.ref['@ref'].id === id)
-    }));
-    
     
     return (
         <div className='post-card' >
@@ -66,10 +61,12 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
             </h3>
             <p onClick={() => {
 
-               if(!isPostLikedByUser){
-                   likePost();
-                }else{
-                    unlikePost();
+                if(clickable){
+                    if(!isPostLikedByUser){
+                        likePost();
+                     }else{
+                         unlikePost();
+                     }
                 }
             }}>
               {isPostLikedByUser?'liked!!':'_ _'}  { postLikeCount } Likes

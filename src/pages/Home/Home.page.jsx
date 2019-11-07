@@ -30,7 +30,9 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
     }
     
     useEffect(() => {
+        
        
+
         fetchAllPosts()
         .then(postsData => {
             
@@ -51,6 +53,10 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
 
 
     }, [setAllPosts, setLikesByUser, currentUser])
+
+    useEffect(()=>{
+         
+    },[])
     
     return (
         <div className='home-page'>

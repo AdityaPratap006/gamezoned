@@ -24,7 +24,7 @@ const likesByUserReducer = (state = initialState, action) => {
         case REMOVE_LIKE_BY_USER:
             return {
                 ...state,
-                 likes_by_user: state.likes_by_user.filter(like => like.ref['@ref'].id === action.payload.ref['@ref'].id)
+                 likes_by_user: state.likes_by_user.filter(like => like.ref['@ref'].id !== action.payload.ref['@ref'].id)
             } 
     
         default:
