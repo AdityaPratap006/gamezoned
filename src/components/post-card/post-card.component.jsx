@@ -13,7 +13,7 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
     const [clickable, setClickable] = useState(true)
     const [postLikeCount, setPostLikeCount] = useState(likeCount);
 
-    const likePost =  () => {
+    const likePost = async () => {
         setClickable(false);
         return fetch('/.netlify/functions/post-like',{
             method:"POST",
@@ -33,7 +33,7 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
     }
 
 
-    const unlikePost =  () => {
+    const unlikePost = async () => {
         setClickable(false)
         return fetch('/.netlify/functions/post-unlike',{
             method:"POST",

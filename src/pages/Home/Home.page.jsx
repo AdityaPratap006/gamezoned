@@ -11,7 +11,7 @@ import PostsContainer from '../../components/posts-container/posts-container.com
 
 const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
 
-    const fetchAllPosts = () => {
+    const fetchAllPosts = async () => {
 
         return fetch('/.netlify/functions/all-posts-fetch',{
                 method:'POST'
@@ -19,7 +19,7 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
             .then(res => res.json())
     }
 
-    const fetchLikesByCurrentUser = (userId) => {
+    const fetchLikesByCurrentUser = async (userId) => {
         return fetch('/.netlify/functions/all-likes-by-user-fetch',{
             method:'POST',
             body: JSON.stringify({
