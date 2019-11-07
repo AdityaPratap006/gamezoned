@@ -1,5 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState  } from 'react';
 import './post-card.styles.scss';
+
+import UIfx from 'uifx';
+import waterDropAudio from '../../assets/273869__beskhu__water-drop.wav';
 
 import { connect } from 'react-redux';
 
@@ -49,6 +52,14 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
         .catch(err => console.log(err))
     }
     
+    const waterDrop = new UIfx(
+        waterDropAudio,
+        {
+          volume: 0.4, // number between 0.0 ~ 1.0
+          throttleMs: 100
+        }
+      )
+
     return (
         <div className='post-card' >
             <h3>{postedByUserName} is playing</h3>
@@ -62,6 +73,7 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
             <p onClick={() => {
 
                 if(clickable){
+                    waterDrop.play();
                     if(!isPostLikedByUser){
                         likePost();
                      }else{
