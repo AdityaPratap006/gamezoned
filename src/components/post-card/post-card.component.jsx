@@ -1,4 +1,4 @@
-import React, { useState, useEffect  } from 'react';
+import React, { useState } from 'react';
 import './post-card.styles.scss';
 
 import UIfx from 'uifx';
@@ -60,22 +60,12 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
     const waterDrop = new UIfx(
         waterDropAudio,
         {
-          volume: 0.4, // number between 0.0 ~ 1.0
-          throttleMs: 100
+          volume: 0.6, // number between 0.0 ~ 1.0
+          throttleMs: 50
         }
       )
 
-    // useEffect(() => {
-    //     console.log('post data',id);
-    //     console.log({isPostLikedByUser});
-    //     console.log({likedUI})
-    //     console.log({likes_by_user});
-    //    // setLikedUI(isPostLikedByUser)
-         
-    // }, [likes_by_user, isPostLikedByUser,likedUI,id])
-
-     
-
+    
     return (
         <div className='post-card' >
             <h3>{postedByUserName} is playing</h3>
@@ -95,6 +85,7 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
                      }else{
                          unlikePost();
                      }
+                     
                 }
             }}>
               { likedUI  ?'liked!!':'_ _'}  { postLikeCount } Likes
@@ -119,30 +110,3 @@ export default connect(
 )(PostCard);
 
 
-//previously used code just kept for reference, not required as such
- /*const [userOfThisPost, setUserOfThisPost] = useState(null);
-
-    const fetchUser = (userId) => {
-        return fetch(`/.netlify/functions/user-fetch`, {
-        method: 'POST',
-        body: JSON.stringify({
-            id:userId
-        })
-        
-        }).then(response => {
-        return response.json()
-        })
-    }
-
-    
-
-    useEffect(()=>{
-        
-    fetchUser(postedBy)
-        .then(res => res.data)
-        .then(data => {
-            setUserOfThisPost(data.name)
-        })
-        .catch(err => console.log(err))
-
-    },[userOfThisPost])*/

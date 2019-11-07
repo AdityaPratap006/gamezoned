@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.6.0",
     "@reach/dialog": "^0.5.0",
     "@reach/tabs": "^0.5.0",
     "@reach/visually-hidden": "^0.5.0",
