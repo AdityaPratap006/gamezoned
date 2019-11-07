@@ -1,4 +1,4 @@
-import React, { useState  } from 'react';
+import React, { useState, useEffect  } from 'react';
 import './post-card.styles.scss';
 
 import UIfx from 'uifx';
@@ -11,7 +11,10 @@ import { addLikeByUser, removeLikeByUser } from '../../redux/likes_by_user/likes
 const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, likeCount}, currentUser, likes_by_user, addLikeByUser, removeLikeByUser, isPostLikedByUser}) => {
  
     const [clickable, setClickable] = useState(true)
-    const [likedUI, setLikedUI ] = useState(isPostLikedByUser);
+    const [likedUI, setLikedUI ] = useState(((likes_by_user&& likes_by_user.find(like => {
+        //console.log('likedPost: ',like)
+        return (like.ref['@ref'].id === id);
+    }))? true : false));
     const [postLikeCount, setPostLikeCount] = useState(likeCount);
 
     const likePost = async () => {
@@ -64,6 +67,18 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
         }
       )
 
+    useEffect(() => {
+        console.log('post data',id);
+        console.log({isPostLikedByUser});
+        console.log({likedUI})
+        console.log({likes_by_user});
+        
+        return setLikedUI(isPostLikedByUser);
+
+    }, [likes_by_user, isPostLikedByUser])
+
+     
+
     return (
         <div className='post-card' >
             <h3>{postedByUserName} is playing</h3>
@@ -85,7 +100,7 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
                      }
                 }
             }}>
-              {likedUI?'liked!!':'_ _'}  { postLikeCount } Likes
+              { likedUI ?'liked!!':'_ _'}  { postLikeCount } Likes
             </p>
         </div>
     )

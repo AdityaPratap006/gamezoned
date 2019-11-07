@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect} from 'react';
 import './posts-container.styles.scss';
 
 import { connect } from 'react-redux';
@@ -7,7 +7,9 @@ import PostCard from '../post-card/post-card.component';
 
 const PostsContainer = ({ all_posts, likes_by_user }) => {
 
-
+    useEffect(() => {
+    
+    }, [likes_by_user])
 
     return (
         all_posts
