@@ -50,7 +50,7 @@ function App({currentUser }) {
                   )}/>
 
                 <Route  path="/home" render={()=>(
-                  (currentUser)
+                  (identity && identity.isLoggedIn)
                   ?(<HomePage/>)
                   :(<Redirect to='/'/>) 
                   )}/>

@@ -5,21 +5,21 @@ import { connect } from 'react-redux';
 
 const PostCard = React.lazy(() => import('../post-card/post-card.component')) ;
 
-const PostsContainer = ({ all_posts, likes_by_user }) => {
+const PostsContainer = ({ postList, likes_by_user }) => {
 
     useEffect(() => {
     
     }, [likes_by_user])
 
     return (
-        all_posts
+        postList
             ? (
                 <React.Fragment>
 
                     <div className='posts-container'>
 
                         {
-                            all_posts.map(post => {
+                            postList.map(post => {
 
                                 const isPostLikedByUser = (likes_by_user && likes_by_user.length && likes_by_user.find(like => {
                                     console.log('likedPost: ',like)
@@ -49,7 +49,7 @@ const PostsContainer = ({ all_posts, likes_by_user }) => {
 }
 
 const mapStateToProps = state => ({
-    all_posts: state.all_posts.all_posts,
+    //all_posts: state.all_posts.all_posts,
     likes_by_user: state.likes_by_user.likes_by_user
 })
 

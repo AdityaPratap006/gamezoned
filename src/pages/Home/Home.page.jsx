@@ -36,7 +36,13 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
         fetchAllPosts()
         .then(postsData => {
             
+            const compareByTimePosted = (postA, postB) => {
 
+                //Decending order
+                return (new Date(postB.data.createdAt) <= new Date(postA.data.createdAt))?-1:1; 
+            }
+
+            postsData.sort(compareByTimePosted);
 
             if(currentUser){
                 fetchLikesByCurrentUser(currentUser.faunadbUserId)
@@ -60,7 +66,7 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
     
     return (
         <div className='home-page'>
-            <PostsContainer/>
+            <PostsContainer postList={all_posts}/>
         </div>
     )
 }
