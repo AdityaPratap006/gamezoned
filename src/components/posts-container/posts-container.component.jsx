@@ -3,7 +3,7 @@ import './posts-container.styles.scss';
 
 import { connect } from 'react-redux';
 
-import PostCard from '../post-card/post-card.component';
+const PostCard = React.lazy(() => import('../post-card/post-card.component')) ;
 
 const PostsContainer = ({ all_posts, likes_by_user }) => {
 
@@ -21,17 +21,21 @@ const PostsContainer = ({ all_posts, likes_by_user }) => {
                         {
                             all_posts.map(post => {
 
-                                const isPostLikedByUser = (likes_by_user.find(like => {
+                                const isPostLikedByUser = (likes_by_user && likes_by_user.length && likes_by_user.find(like => {
                                     console.log('likedPost: ',like)
                                     return (like.ref['@ref'].id === post.ref['@ref'].id);
                                 }))? true : false;
 
-                                 return(<PostCard
-                                    key={post.ref['@ref'].id}
-                                    id={post.ref['@ref'].id}
-                                    data={post.data}
-                                    isPostLikedByUser={isPostLikedByUser}
-                                />)
+                                 return(
+                                     <React.Suspense fallback={<div>Loading....</div>}>
+                                         <PostCard
+                                            key={post.ref['@ref'].id}
+                                            id={post.ref['@ref'].id}
+                                            data={post.data}
+                                            isPostLikedByUser={isPostLikedByUser}
+                                        />
+                                     </React.Suspense>
+                                 )
                             })
                         }
 

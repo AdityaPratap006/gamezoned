@@ -30,19 +30,16 @@ exports.handler = async (event, context) => {
             }
           })
         )
-        .then(response => {
-          console.log("liked!", response);
+        .then(responsePost => {
+          console.log("liked!", responsePost);
 
           return client
             .query(q.Create(q.Ref("classes/likes"), like))
-            .then(response => {
-              console.log("success", response);
+            .then(responseLike => {
+              console.log("success", responseLike);
               return {
                 statusCode: 200,
-                body: JSON.stringify({...res, data:{
-                    ...res.data,
-                    likeCount: res.data.likeCount + 1
-                }})//return the post data after like
+                body: JSON.stringify(responsePost)//return the post data after like
               };
             })
             .catch(error => {

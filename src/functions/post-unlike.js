@@ -24,7 +24,7 @@ exports.handler = async (event, context) => {
       .query(
         q.Update(q.Ref(`classes/posts/${postId}`), {
           data: {
-            likeCount: res.data.likeCount - 1
+            likeCount:  res.data.likeCount > 0? res.data.likeCount - 1:  res.data.likeCount
           }
         })
       )
@@ -42,7 +42,7 @@ exports.handler = async (event, context) => {
             console.log('success', postData)
             return {
               statusCode: 200,
-              body: JSON.stringify(postData)
+              body: JSON.stringify(response)
             }
           }).catch((error) => {
             console.log('error', error)
