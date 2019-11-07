@@ -18,17 +18,34 @@ exports.handler = (event, context) => {
       
       // create new query out of todo refs. http://bit.ly/2LG3MLg
       const getAllLikesDataQuery = likeRefs.map(ref => {
+       
         return q.Get(ref);
       });
       // then query the refs
       return client.query(getAllLikesDataQuery).then(ret => {
 
-        const result = ret.filter(likeObj => (likeObj.data.userId === id));
-        console.log(`${result.length} likes by user id ${id} found`);
-        return {
-          statusCode: 200,
-          body: JSON.stringify(result)
-        };
+        const filteredLikes = ret.filter(likeObj => likeObj.data.userId === id)
+
+        const  getPostsData = filteredLikes.map(likeObj => {
+           
+          return q.Get(q.Ref(`classes/posts/${likeObj.data.postId}`));
+        })
+        
+        return client.query(getPostsData)
+               .then(data =>{ 
+                 
+                console.log(data)
+                // const result = data.filter(post => (post.data.postedByUserId === id))
+                // console.log('post-data',result) 
+                //  console.log('returned: ',result);
+                 //console.log(`${result.length} likes by user id ${id} found`);
+                 return {
+                   statusCode: 200,
+                   body: JSON.stringify(data)
+                 };
+                })
+
+        
       });
     })
     .catch(error => {

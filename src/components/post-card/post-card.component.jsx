@@ -7,13 +7,10 @@ import { addLikeByUser } from '../../redux/likes_by_user/likes_by_user.actions';
 
 const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, likeCount}, currentUser, likes_by_user, addLikeByUser}) => {
  
-    const [liked, setLiked] = useState((likes_by_user.filter(like => (like.data.postId === id)).length > 0))
+    //const [liked, setLiked] = useState((likes_by_user.filter(like => (like.ref['@ref'].id === id)).length > 0))
     const [postLikeCount, setPostLikeCount] = useState(likeCount);
 
     const likePost = () => {
-
-        setLiked(true);
-        setPostLikeCount(postLikeCount + 1)
 
         return fetch('/.netlify/functions/post-like',{
             method:"POST",
@@ -24,25 +21,35 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
         })
         .then(res => res.json())
         .then(likeData => {
+            console.log('fetched like data',likeData)
             addLikeByUser(likeData);
+            setPostLikeCount(likeCount+1);
         })
         .catch(err => console.log(err))
     }
 
     //let displayLikes = 0;
 
-    useEffect(()=>{
-        setLiked((likes_by_user.filter(like => (like.ref['@ref'].id === id)).length > 0))
-        setPostLikeCount(likeCount)
+    // useEffect(()=>{
+    //     setLiked((likes_by_user.filter(like => (like.ref['@ref'].id === id)).length > 0))
+    //     setPostLikeCount(likeCount)
 
-    })
+    // },[id,likeCount,likes_by_user])
 
+ 
     
+    const isPostLikedByUser = (likes_by_user.find(like => {
+        //console.log('likedPost: ',like)
+        return (like.ref['@ref'].id === id)
+    }));
     
+    //const displayLikeCountIndex = (likes_by_user.findIndex(like => (like.ref['@ref'].id === id)))
+
+    //const displayLikeCount = displayLikeCountIndex && likes_by_user[displayLikeCountIndex] && likes_by_user[displayLikeCountIndex].likeCount;
 
     return (
         <div className='post-card' >
-            <h3>{postedByUserName}</h3>
+            <h3>{postedByUserName} is playing</h3>
             <h4>{new Date(createdAt).toLocaleString() }</h4>
             <h1>
                 {title}
@@ -51,11 +58,11 @@ const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, l
                 {developedBy}
             </h3>
             <p onClick={() => {
-               if(!liked){
+               if(!isPostLikedByUser){
                    likePost()
                 }
             }}>
-              {liked?'liked!!':'_ _'}  {(postLikeCount === 0)?likeCount:postLikeCount} Likes
+              {isPostLikedByUser?'liked!!':'_ _'}  { postLikeCount } Likes
             </p>
         </div>
     )

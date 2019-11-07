@@ -9,7 +9,7 @@ import likesByUserReducer from './likes_by_user/likes_by_user.reducer';
 const persistConfig = {
     key: 'root',
     storage,
-    whitelist: ['user','likes_by_user']
+    whitelist: ['user','all_posts','likes_by_user']
 }
 
 const rootReducer = combineReducers({
