@@ -10,7 +10,7 @@ import { addLikeByUser, removeLikeByUser } from '../../redux/likes_by_user/likes
 
 const PostCard = ({id,data:{ title, developedBy, postedByUserName , createdAt, likeCount}, currentUser, likes_by_user, addLikeByUser, removeLikeByUser, isPostLikedByUser}) => {
  
-    console.log(id, {isPostLikedByUser})
+     
     const [clickable, setClickable] = useState(true)
     const [likedUI, setLikedUI ] = useState(isPostLikedByUser? true : false);
     const [postLikeCount, setPostLikeCount] = useState(likeCount);

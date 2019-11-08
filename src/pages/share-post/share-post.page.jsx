@@ -34,7 +34,7 @@ const sharePost = async (userId, userName, title, year, developedBy, type)=>{
 
 const SharePostPage = ({userId, userName}) => {
 
-    console.log(userId, userName);
+     
 
     const [year, setYear] = React.useState('');
     const [title, setTitle] = React.useState('');
@@ -113,7 +113,7 @@ const SharePostPage = ({userId, userName}) => {
                     <Paper className='paper' >
                         <TextField
                             required
-                            id="standard-required"
+                            id="title"
                             label="Title Of Game"
                             placeholder="for ex: Need For Speed: The Run"
                             className='share-post-form-textField'
@@ -126,7 +126,7 @@ const SharePostPage = ({userId, userName}) => {
                     <Paper className='paper'>
                         <TextField
                             required
-                            id="standard-required"
+                            id="developer"
                             label="Developer"
                             placeholder="for ex: Electronic Arts"
                             className='share-post-form-textField'

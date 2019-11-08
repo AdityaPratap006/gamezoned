@@ -15,10 +15,12 @@ exports.handler = (event, context) => {
       console.log(`${postRefs.length} posts found`)
       // create new query out of todo refs. http://bit.ly/2LG3MLg
       const getAllPostsDataQuery = postRefs.map((ref) => {
-        return q.Get(ref)
+         
+        return q.Get(ref[1])
       })
       // then query the refs
       return client.query(getAllPostsDataQuery).then((ret) => {
+        console.log('Holaaaaaaaaaaaaaa!', ret)
         return {
           statusCode: 200,
           body: JSON.stringify(ret)

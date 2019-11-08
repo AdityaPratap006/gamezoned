@@ -59,15 +59,17 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
 
 
 
-    }, [setAllPosts, setLikesByUser, currentUser])
+    },[setAllPosts,currentUser, setLikesByUser])
 
-    useEffect(()=>{
-         
-    },[])
+    
     
     return (
         <div className='home-page'>
-            <PostsContainer postList={all_posts}/>
+            {
+                  all_posts.length
+                ?<PostsContainer  postList={all_posts} />
+                :<h3>Loading...</h3>
+            } 
         </div>
     )
 }

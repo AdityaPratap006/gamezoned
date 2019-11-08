@@ -22,14 +22,14 @@ const PostsContainer = ({ postList, likes_by_user }) => {
                             postList.map(post => {
 
                                 const isPostLikedByUser = (likes_by_user && likes_by_user.length && likes_by_user.find(like => {
-                                    console.log('likedPost: ',like)
+                                     
                                     return (like.ref['@ref'].id === post.ref['@ref'].id);
                                 }))? true : false;
 
                                  return(
-                                     <React.Suspense fallback={<div>Loading....</div>}>
+                                     <React.Suspense key={post.ref['@ref'].id} fallback={<div>Loading....</div>}>
                                          <PostCard
-                                            key={post.ref['@ref'].id}
+                                            
                                             id={post.ref['@ref'].id}
                                             data={post.data}
                                             isPostLikedByUser={isPostLikedByUser}

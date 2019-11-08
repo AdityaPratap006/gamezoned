@@ -2,7 +2,7 @@ import { SET_ALL_POSTS } from './all-posts.types';
 import { ADD_LIKE_BY_USER, REMOVE_LIKE_BY_USER } from '../likes_by_user/likes_by_user.types';
 
 const INITIAL_STATE = {
-    all_posts:null
+    all_posts:[]
 }
 
 const allPostsReducer = (state = INITIAL_STATE, action) => {

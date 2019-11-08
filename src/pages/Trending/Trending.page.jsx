@@ -1,37 +1,43 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Trending.styles.scss';
 
-import { connect } from 'react-redux';
 
-import PostContainer from '../../components/posts-container/posts-container.component';
+import PostsContainer from '../../components/posts-container/posts-container.component';
 
-const TrendingPage = ({all_posts}) => {
+const TrendingPage = () => {
 
-    const compareForMostLiked = (postA, postB) => {
-        return (postB.data.likeCount - postA.data.likeCount);
+    const [trendingPosts, setTrendingPosts] = useState([])
+
+    const getTrendingPosts = async () => {
+
+        return fetch('/.netlify/functions/trending-posts-fetch',{
+            method:"POST"
+        })
+        .then(res => res.json())
     }
-
-    const mostLikedPosts = all_posts || (all_posts && all_posts.concat().sort(compareForMostLiked))
-
+    
     useEffect(()=>{
 
+        getTrendingPosts()
+        .then(posts => {
+            console.log('Fetched Trending Posts!');
+            setTrendingPosts(posts);
+        })
+        .catch(err => console.log(err))
 
+    },[setTrendingPosts])
 
-    },[mostLikedPosts])
-
-
+     
     return (
         <div className='trending-page'>
-            <PostContainer postList={mostLikedPosts} />
+            {
+                trendingPosts.length
+                ?<PostsContainer  postList={trendingPosts} />
+                :<h3>Loading...</h3>
+            } 
         </div>
     )
 }
 
-const mapStateToProps = (state) => ({
-    all_posts: state.all_posts.all_posts
-})
 
-export default connect(
-    mapStateToProps,
-    null
-)(TrendingPage);
+export default TrendingPage;
