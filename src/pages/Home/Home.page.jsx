@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import './Home.styles.scss';
 
 import { connect } from 'react-redux';
@@ -9,7 +9,7 @@ import { setLikesByUser } from '../../redux/likes_by_user/likes_by_user.actions'
 
 import PostsContainer from '../../components/posts-container/posts-container.component';
 
-const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
+const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts, history}) => {
 
     const fetchAllPosts = async () => {
 
@@ -29,6 +29,8 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
         .then(res => res.json())
     }
     
+    const [loadingUI, setLoadingUI] = useState(true);
+
     useEffect(() => {
         
        
@@ -50,6 +52,7 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
                 .then(likesData => {
                     setAllPosts(postsData);
                     setLikesByUser(likesData);
+                    setLoadingUI(false);
                 })
                 .catch(err => console.log(err))
             }
@@ -59,14 +62,14 @@ const HomePage = ({currentUser, setAllPosts, setLikesByUser, all_posts}) => {
 
 
 
-    },[setAllPosts,currentUser, setLikesByUser])
+    },[setAllPosts,currentUser, setLikesByUser, history])
 
     
     
     return (
         <div className='home-page'>
             {
-                  all_posts.length
+                !loadingUI && all_posts.length
                 ?<PostsContainer  postList={all_posts} />
                 :<h3>Loading...</h3>
             } 
