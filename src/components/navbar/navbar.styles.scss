@@ -1,3 +1,20 @@
+.logo-container{
+    position: fixed;
+    z-index: 150;
+    top:10px;
+    left:20px;
+    height: 60px;
+    width: 4rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    img{
+        height:50px;
+        width: auto;
+    }
+}
+
 .navbar{
     width:100vw;
     max-width: 100%;
@@ -15,23 +32,58 @@
     align-items: center;
     box-shadow: 0 8px 16px 0 rgba(0,0,0,0.4);
 
+    
+
     .menu-item{
-        width: auto;
+        width: 2rem;
         height: 2rem;
-        margin:0 2rem;
-
-        
-        color:#fff;
-        font-size: 1.2rem;
-        
-
+        margin:0 1.5rem;
         display: flex;
         justify-content: center;
         align-items: center;
 
-        &:hover{
-            text-decoration: underline;
-            cursor: pointer;
+         
+
+        .menu-icon{
+            height: 2rem;
+            width: 2rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            &:hover{
+                cursor: pointer;
+            }
+
+            img{
+                height: 1.8rem;
+                width: 1.8rem;
+            }
+        }
+
+        .menu-icon {
+            img:nth-child(1){
+                 
+                
+                width:1.8rem;
+                height: 2.1rem;
+            }
+        }
+    }
+}
+
+@media only screen and (min-width: 750px){
+    .navbar{
+        .menu-item{
+            margin:0 2rem;
+        }
+    }
+}
+
+@media only screen and (min-width: 1080px){
+    .navbar{
+        .menu-item{
+            margin:0 2.4rem;
         }
     }
 }

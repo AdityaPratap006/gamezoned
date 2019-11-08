@@ -1,20 +1,108 @@
-.post-card{
-    width:87%;
-    min-height: 380px;
-    height: 90%;
-    max-height: 400px;
-    border-radius: 15px;
-    box-shadow:0 8px 16px 0 rgba(0, 0, 0, 0.4);
-    padding:0 1rem;
-    h1{
-        color:whitesmoke;
+.post-card {
+  width: 87%;
+  min-height: 380px;
+  height: 90%;
+  max-height: 400px;
+  border-radius: 15px;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.4);
+  padding: 0 1rem;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: #021B79;  /* fallback for old browsers */
+//background: -webkit-linear-gradient(to right, #021B79, #0575E6);  /* Chrome 10-25, Safari 5.1-6 */
+//background: linear-gradient(to right, #021B79, #0575E6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+
+   .header {
+    width: 98%;
+    height: 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+
+    h3 {
+      margin: 0;
+      padding: 0;
+      font-size: 1rem;
+      color: whitesmoke;
     }
-    h3{
+    p {
+      margin: 0;
+      padding: 0;
+      font-size: 0.8rem;
+      color: whitesmoke;
+    }
+  }
+
+  .body {
+    width: 98%;
+    height: 60%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+    border-radius: 10px;
+    background: #232526;  /* fallback for old browsers */
+    background: -webkit-linear-gradient(to right, #414345, #232526);  /* Chrome 10-25, Safari 5.1-6 */
+    background: linear-gradient(to right, #414345, #232526); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    
+    background-position: center;
+    //background-attachment: fixed;
+    background-repeat: no-repeat;
+    .title {
+      width: 98%;
+      height: 40%;
+      text-align: center;
+
+      h1 {
+        color: whitesmoke;
+        font-size: 1.4rem;
+      }
+    }
+
+    .details {
+      width: 90%;
+      height: 60%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: flex-start;
+
+      p {
+        font-size: 1rem;
+        color: whitesmoke;
+        padding: 0;
+        margin: 0;
+      }
+    }
+  }
+
+  .footer{
+    width: 98%;
+    height: 20%;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+
+    .like-btn-div{
+        margin-right: 20px;
+        &:hover{
+            cursor: pointer;
+        }
+    }
+
+    p{
         color: whitesmoke;
     }
+  }
 }
-@media only screen and (min-width:660px){
-    .post-card{
-        width: 90%;
-    }
+@media only screen and (min-width: 660px) {
+  .post-card {
+    width: 90%;
+  }
 }

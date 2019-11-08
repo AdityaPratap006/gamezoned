@@ -2,8 +2,11 @@ import React, { useEffect} from 'react';
 import './posts-container.styles.scss';
 
 import { connect } from 'react-redux';
+import Loader from '../loader/loader.component';
+
 
 const PostCard = React.lazy(() => import('../post-card/post-card.component')) ;
+
 
 const PostsContainer = ({ postList, likes_by_user }) => {
 
@@ -43,7 +46,7 @@ const PostsContainer = ({ postList, likes_by_user }) => {
                 </React.Fragment>
 
             ) : (
-                <div>Loading....</div>
+                <Loader/>
             )
     )
 }

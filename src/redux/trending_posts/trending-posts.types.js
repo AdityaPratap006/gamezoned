@@ -1,0 +1,1 @@
+export const SET_TRENDING_POSTS = 'SET_TRENDING_POSTS';
