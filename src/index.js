@@ -12,7 +12,7 @@ import * as serviceWorker from "./serviceWorker";
 
 import { store, persistor } from "./redux/store";
 
-const url = "https://gamezoned.netlify.com/"; // supply the url of your Netlify site instance. VERY IMPORTANT. no point putting in env var since this is public anyway
+const url = "https://gamezoned.netlify.app/"; // supply the url of your Netlify site instance. VERY IMPORTANT. no point putting in env var since this is public anyway
 
 ReactDOM.render(
   <Provider store={store}>
